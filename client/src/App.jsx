@@ -6,7 +6,8 @@ import io from "socket.io-client";
 import "./App.css";
 
 // Connect to our backend WebSockets
-const socket = io("https://aichatapp-backend-zw36.onrender.com");
+const API_BASE = "https://aichatapp-backend-zw36.onrender.com";
+const socket = io(API_BASE);
 
 
 function ChatInterface() {
@@ -24,7 +25,7 @@ function ChatInterface() {
 
       if (currentConvId) {
         try {
-          const response = await fetch(`http://localhost:8120/chat/${currentConvId}`);
+          const response = await fetch(`${API_BASE}/chat/${currentConvId}`);
           const data = await response.json();
           if (data.success) {
             setMessages(data.messages);
@@ -34,7 +35,7 @@ function ChatInterface() {
         } catch (error) { console.error(error); }
       } else {
         try {
-          const response = await fetch("http://localhost:8120/chat/start", { method: "POST" });
+          const response = await fetch(`${API_BASE}/chat/start`, { method: "POST" });
           const data = await response.json();
           if (data.success) {
             const newId = data.conversation._id;
@@ -73,7 +74,7 @@ function ChatInterface() {
     setLoading(true); // Turn on the "Typing..." indicator
 
     try {
-      await fetch("http://localhost:8120/chat/message", {
+     await fetch(`${API_BASE}/chat/message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -160,7 +161,7 @@ function AdminPanel() {
     // Fetch all conversations for the sidebar
     const fetchConversations = async () => {
       try {
-        const response = await fetch("https://aichatapp-backend-zw36.onrender.com/admin/conversations");
+       const response = await fetch(`${API_BASE}/admin/conversations`);
         const data = await response.json();
         if (data.success) setConversations(data.conversations);
       } catch (error) { console.error(error); }
@@ -187,7 +188,7 @@ function AdminPanel() {
 
   const loadChat = async (convId) => {
     try {
-      const response = await fetch(`https://aichatapp-backend-zw36.onrender.com/chat/${convId}`);
+      const response = await fetch(`${API_BASE}/chat/${convId}`);
       const data = await response.json();
       if (data.success) {
         setActiveChat(data.conversation);
@@ -205,7 +206,7 @@ function AdminPanel() {
     setAdminInput("");
 
     try {
-      await fetch("https://aichatapp-backend-zw36.onrender.com/chat/message", {
+      await fetch(`${API_BASE}/chat/message`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
