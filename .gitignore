@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Environment Variables (Keep your API keys safe!)
+.env
+
+# Build files
+dist/
+build/
+
+# Mac system files
+.DS_Store
