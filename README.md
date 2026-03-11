@@ -55,4 +55,18 @@ We utilize **Prompt Engineering** to force Gemini to return a specific JSON sche
    PORT=8120
    MONGO_URI=mongodb://localhost:27017/chatspoof
    KEY=your_gemini_api_key
-  
+4. Start the server: `node index.js.`
+
+### Frontend Setup
+ 1. Navigate to the `client` directory.
+ 2. Install dependencies: `npm install`.
+ 3. Start the app: `npm run dev`.
+
+### 🖥️ How to Use
+ 1. User View: Open `http://localhost:5173` to start a session.
+ 2. Admin View: Open `http://localhost:5173/admin` to monitor sessions.
+ 3. Test Escalation: Type a nonsensical message (e.g., "zxywvut") in the user chat. The AI will signal low confidence, and the chat will turn Red (Escalated) in the Admin sidebar.
+ 4. Human Reply: As an admin, click the escalated chat and reply to take over the conversation from the AI.
+
+### 👤 Author
+  Pulkit Garg - `GitHub Profile`
