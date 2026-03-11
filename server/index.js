@@ -7,7 +7,11 @@ require("dotenv").config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://aichatapp-frontend.onrender.com", // Replace with YOUR Render Frontend URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());
 
 // ==========================================
@@ -15,15 +19,19 @@ app.use(express.json());
 // ==========================================
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: "*" }, 
+  cors: {
+    origin: "*", // This allows any frontend to connect
+    methods: ["GET", "POST"]
+  },
+  transports: ['websocket', 'polling'] // Helps with connection stability on Render
 });
 
 io.on("connection", (socket) => {
   console.log("🟢 User connected:", socket.id);
   
-  // Connect users to specific chat rooms based on their conversation ID
   socket.on("join_room", (conversationId) => {
     socket.join(conversationId);
+    console.log(`🏠 User ${socket.id} joined room: ${conversationId}`);
   });
 });
 
