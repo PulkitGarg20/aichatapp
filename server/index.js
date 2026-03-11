@@ -67,7 +67,7 @@ if (!process.env.KEY) {
 
 const genAI = new GoogleGenerativeAI(process.env.KEY);
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.5-flash",
   // Force Gemini to output JSON so we can extract the confidence score
   generationConfig: { responseMimeType: "application/json" } 
 });
