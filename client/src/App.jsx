@@ -6,11 +6,9 @@ import io from "socket.io-client";
 import "./App.css";
 
 // Connect to our backend WebSockets
-const socket = io("http://localhost:8120");
+const socket = io("https://aichatapp-backend-zw36.onrender.com");
 
-// ==========================================
-// 1. MAIN CHAT INTERFACE (User Facing)
-// ==========================================
+
 function ChatInterface() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -151,9 +149,7 @@ function ChatInterface() {
   );
 }
 
-// ==========================================
-// 2. ADMIN DASHBOARD
-// ==========================================
+
 function AdminPanel() {
   const [conversations, setConversations] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
@@ -164,7 +160,7 @@ function AdminPanel() {
     // Fetch all conversations for the sidebar
     const fetchConversations = async () => {
       try {
-        const response = await fetch("http://localhost:8120/admin/conversations");
+        const response = await fetch("https://aichatapp-backend-zw36.onrender.com/admin/conversations");
         const data = await response.json();
         if (data.success) setConversations(data.conversations);
       } catch (error) { console.error(error); }
@@ -191,7 +187,7 @@ function AdminPanel() {
 
   const loadChat = async (convId) => {
     try {
-      const response = await fetch(`http://localhost:8120/chat/${convId}`);
+      const response = await fetch(`https://aichatapp-backend-zw36.onrender.com/chat/${convId}`);
       const data = await response.json();
       if (data.success) {
         setActiveChat(data.conversation);
@@ -209,7 +205,7 @@ function AdminPanel() {
     setAdminInput("");
 
     try {
-      await fetch("http://localhost:8120/chat/message", {
+      await fetch("https://aichatapp-backend-zw36.onrender.com/chat/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -291,9 +287,6 @@ function AdminPanel() {
   );
 }
 
-// ==========================================
-// 3. APP ROUTER
-// ==========================================
 export default function App() {
   return (
     <Router>
