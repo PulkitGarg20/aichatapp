@@ -8,9 +8,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const app = express();
 app.use(cors({
-  origin: "https://aichatapp-frontend.onrender.com", // Replace with YOUR Render Frontend URL
-  methods: ["GET", "POST"],
-  credentials: true
+  origin: "*", 
+  methods: ["GET", "POST"]
 }));
 app.use(express.json());
 
@@ -68,7 +67,7 @@ if (!process.env.KEY) {
 
 const genAI = new GoogleGenerativeAI(process.env.KEY);
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+  model: "gemini-1.5-flash",
   // Force Gemini to output JSON so we can extract the confidence score
   generationConfig: { responseMimeType: "application/json" } 
 });
